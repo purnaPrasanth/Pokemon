@@ -1,1 +1,1 @@
-include ':app', ':base', ':httpclient'
+include ':app', ':base'
