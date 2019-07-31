@@ -1,4 +1,4 @@
-package com.purna.pokemon.http.exception
+package com.purna.pokemon.httpwrapper.exception
 
 /**
  * Mapper for Mapping Http Response Code to [HttpException]

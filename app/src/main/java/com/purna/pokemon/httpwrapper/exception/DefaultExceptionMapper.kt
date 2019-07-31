@@ -1,4 +1,4 @@
-package com.purna.pokemon.http.exception
+package com.purna.pokemon.httpwrapper.exception
 
 /**
  * Default Implementation of [ICodeToExceptionMapper]

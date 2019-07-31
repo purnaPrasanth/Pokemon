@@ -5,5 +5,5 @@ package com.purna.pokemon.http
  **/
 class Response(
     private val request: Request,
-    val response: ResponseBody
+    val body: ResponseBody
 )

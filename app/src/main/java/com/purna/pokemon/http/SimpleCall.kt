@@ -9,7 +9,7 @@ import java.net.URL
 /**
  * Created by Purna on 2019-07-30 as a part of Pokemon
  **/
-class DefaultCall(
+class SimpleCall(
     private val client: HttpClient,
     private val request: Request
 ) : Call {

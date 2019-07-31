@@ -2,8 +2,8 @@ package com.purna.pokemon.instances
 
 import com.purna.base.creational.BaseGenerator
 import com.purna.base.creational.single
-import com.purna.pokemon.http.ClientWrapper
 import com.purna.pokemon.http.HttpClient
+import com.purna.pokemon.httpwrapper.ClientWrapper
 
 object NetworkInstances {
     private val httpClientGenerator: BaseGenerator<HttpClient> = single {
@@ -13,10 +13,7 @@ object NetworkInstances {
     }
 
     private val clientWrapperGenerator: BaseGenerator<ClientWrapper> = single {
-        ClientWrapper(
-            httpClient,
-            ExecutorInstances.ioDispatcher
-        )
+        ClientWrapper(httpClient)
     }
 
     val httpClient: HttpClient

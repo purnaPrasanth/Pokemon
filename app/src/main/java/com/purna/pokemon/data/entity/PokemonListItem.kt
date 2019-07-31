@@ -1,4 +1,4 @@
-package com.purna.pokemon.data
+package com.purna.pokemon.data.entity
 
 
 import kotlinx.serialization.SerialName

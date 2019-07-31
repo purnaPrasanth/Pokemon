@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- for width height padding etc -->
+    <dimen name="d0">0dp</dimen>
+    <dimen name="d1">1dp</dimen>
+    <dimen name="d2">2dp</dimen>
+    <dimen name="d4">4dp</dimen>
+    <dimen name="d6">6dp</dimen>
+    <dimen name="d8">8dp</dimen>
+    <dimen name="d10">10dp</dimen>
+    <dimen name="d12">12dp</dimen>
+    <dimen name="d14">14dp</dimen>
+    <dimen name="d16">16dp</dimen>
+    <dimen name="d18">18dp</dimen>
+    <dimen name="d20">20dp</dimen>
+    <dimen name="d22">22dp</dimen>
+    <dimen name="d24">24dp</dimen>
+    <dimen name="d26">26dp</dimen>
+    <dimen name="d28">28dp</dimen>
+    <dimen name="d30">30dp</dimen>
+    <dimen name="d32">32dp</dimen>
+    <dimen name="d36">36dp</dimen>
+    <dimen name="d38">38dp</dimen>
+    <dimen name="d40">40dp</dimen>
+    <dimen name="d42">42dp</dimen>
+    <dimen name="d44">44dp</dimen>
+    <dimen name="d46">46dp</dimen>
+    <dimen name="d48">48dp</dimen>
+    <dimen name="d50">50dp</dimen>
+    <dimen name="d52">52dp</dimen>
+    <dimen name="d54">54dp</dimen>
+    <dimen name="d56">56dp</dimen>
+    <dimen name="d58">58dp</dimen>
+    <dimen name="d60">60dp</dimen>
+    <dimen name="d64">64dp</dimen>
+    <dimen name="d72">72dp</dimen>
+    <dimen name="d84">84dp</dimen>
+    <dimen name="d100">100dp</dimen>
+    <dimen name="d120">120dp</dimen>
+    <dimen name="d140">140dp</dimen>
+    <dimen name="d160">160dp</dimen>
+    <dimen name="d200">200dp</dimen>
+    <dimen name="d240">240dp</dimen>
+    <dimen name="d280">280dp</dimen>
+    <dimen name="d320">320dp</dimen>
+    <dimen name="d400">400dp</dimen>
+    <dimen name="d500">500dp</dimen>
+    <dimen name="d600">600dp</dimen>
+
+    <!-- dimens in pixels -->
+    <dimen name="p1">1px</dimen>
+    <dimen name="p2" tools:ignore="PxUsage">2px</dimen>
+    <dimen name="p3" tools:ignore="PxUsage">3px</dimen>
+    <dimen name="p4" tools:ignore="PxUsage">4px</dimen>
+
+    <!-- for font size  -->
+    <dimen name="f6">6sp</dimen>
+    <dimen name="f8">8sp</dimen>
+    <dimen name="f10">10sp</dimen>
+    <dimen name="f12">12sp</dimen>
+    <dimen name="f14">14sp</dimen>
+    <dimen name="f16">16sp</dimen>
+    <dimen name="f18">18sp</dimen>
+    <dimen name="f20">20sp</dimen>
+    <dimen name="f22">22sp</dimen>
+    <dimen name="f24">24sp</dimen>
+    <dimen name="f28">28sp</dimen>
+    <dimen name="f30">30sp</dimen>
+    <dimen name="f32">32sp</dimen>
+    <dimen name="f36">36sp</dimen>
+    <dimen name="f40">40sp</dimen>
+    <dimen name="f44">44sp</dimen>
+
+    <dimen name="textSizeTiny">@dimen/f18</dimen>
+    <dimen name="textSizeSmall">@dimen/f12</dimen>
+    <dimen name="textSize">@dimen/f14</dimen>
+    <dimen name="textSizeBig">@dimen/f16</dimen>
+    <dimen name="textSizeHuge">@dimen/f20</dimen>
+
+    <dimen name="parent_padding">@dimen/d24</dimen>
+    <dimen name="parent_padding_half">@dimen/d12</dimen>
+    <dimen name="parent_padding_quarter">@dimen/d6</dimen>
+
+</resources>

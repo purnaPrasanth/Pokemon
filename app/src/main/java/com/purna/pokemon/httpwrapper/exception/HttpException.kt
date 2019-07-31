@@ -1,4 +1,4 @@
-package com.purna.pokemon.http.exception
+package com.purna.pokemon.httpwrapper.exception
 
 /**
  * Most Common Types of Http Exceptions
