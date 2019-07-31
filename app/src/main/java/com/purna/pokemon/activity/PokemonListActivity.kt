@@ -2,7 +2,6 @@ package com.purna.pokemon.activity
 
 import android.view.View
 import android.widget.AdapterView
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -41,11 +40,10 @@ class PokemonListActivity : BaseActivity<ActivityPokemonListBinding>(R.layout.ac
         val pokemonUrl = viewModel.paginaeddatSource.value?.get(p2)?.url ?: return
 
         launch {
-            Toast.makeText(
+            EvolutionListActivity.startActivity(
                 this@PokemonListActivity,
-                DataInstances.pokemonRepo.getEvolutionUrl(pokemonUrl).orEmpty(),
-                Toast.LENGTH_SHORT
-            ).show()
+                DataInstances.pokemonRepo.getEvolutionUrl(pokemonUrl).orEmpty()
+            )
         }
     }
 }

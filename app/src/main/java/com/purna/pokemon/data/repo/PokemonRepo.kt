@@ -50,4 +50,11 @@ class PokemonRepo(
 
         speciesDetail.evolutionChain.url
     }
+
+    suspend fun getEvolutionChain(url: String) = coroutineScope {
+        when (val response = pokemonDataSource.getEvolutionChain(url)) {
+            is Success -> response.data
+            is Error -> null
+        }
+    }
 }

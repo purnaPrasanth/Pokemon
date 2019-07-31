@@ -11,6 +11,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
 /**
@@ -24,8 +25,52 @@ import androidx.recyclerview.widget.RecyclerView
  * @property onItemLongClickListener listener for item long clicks
  */
 
-abstract class SingleTypeBaseRvAdapter<BINDING : ViewDataBinding, DATA>(val mContext: Context, @LayoutRes val layoutId: Int, diffCallback: DiffUtil.ItemCallback<DATA>) :
-    PagedListAdapter<DATA, BaseHolder<BINDING>>(diffCallback) {
+abstract class PaginatedSingleTypeBaseRvAdapter<BINDING : ViewDataBinding, DATA>(
+    val mContext: Context, @LayoutRes val layoutId: Int,
+    diffCallback: DiffUtil.ItemCallback<DATA>
+) : PagedListAdapter<DATA, BaseHolder<BINDING>>(diffCallback) {
+    var onItemClickListener: AdapterView.OnItemClickListener? = null
+    var onItemLongClickListener: AdapterView.OnItemLongClickListener? = null
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHolder<BINDING> {
+        val view =
+            LayoutInflater.from(parent.context).inflate(layoutId, parent, false)
+        return BaseHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: BaseHolder<BINDING>, position: Int) {
+        onBindViewHolder(holder.binding(), position)
+        if (onItemClickListener != null) {
+            holder.itemView.setOnClickListener { v ->
+                onItemClickListener?.onItemClick(
+                    null,
+                    v,
+                    holder.adapterPosition,
+                    holder.itemId
+                )
+            }
+        }
+
+        holder.itemView.setOnLongClickListener { v ->
+            onItemLongClickListener?.onItemLongClick(
+                null,
+                v,
+                holder.adapterPosition,
+                holder.itemId
+            ) == false
+        }
+    }
+
+    /**
+     * to bind data to the view [binding]
+     */
+    protected abstract fun onBindViewHolder(binding: BINDING, position: Int)
+}
+
+abstract class SingleTypeBaseRvAdapter<BINDING : ViewDataBinding, DATA>(
+    val mContext: Context, @LayoutRes val layoutId: Int,
+    diffCallback: DiffUtil.ItemCallback<DATA>
+) : ListAdapter<DATA, BaseHolder<BINDING>>(diffCallback) {
     var onItemClickListener: AdapterView.OnItemClickListener? = null
     var onItemLongClickListener: AdapterView.OnItemLongClickListener? = null
 

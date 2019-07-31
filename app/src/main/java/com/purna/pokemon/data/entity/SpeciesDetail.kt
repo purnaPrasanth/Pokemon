@@ -5,10 +5,10 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class SpeciesDetail(
-    @SerialName("evolution_chain") val evolutionChain: EvolutionChain
+    @SerialName("evolution_chain") val evolutionChain: EvolutionChainUrl
 )
 
 @Serializable
-data class EvolutionChain(
+data class EvolutionChainUrl(
     @SerialName("url") val url: String
 )

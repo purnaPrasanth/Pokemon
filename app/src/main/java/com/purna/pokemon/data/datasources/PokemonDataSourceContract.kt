@@ -1,10 +1,7 @@
 package com.purna.pokemon.data.datasources
 
 import com.purna.pokemon.data.NetworkResult
-import com.purna.pokemon.data.entity.PaginatedData
-import com.purna.pokemon.data.entity.PokemonDetail
-import com.purna.pokemon.data.entity.PokemonListItem
-import com.purna.pokemon.data.entity.SpeciesDetail
+import com.purna.pokemon.data.entity.*
 
 interface PokemonDataSourceContract {
     suspend fun getListOfPokemon(): NetworkResult<PaginatedData<PokemonListItem>>
@@ -14,5 +11,7 @@ interface PokemonDataSourceContract {
     suspend fun getPokemonDetail(url: String): NetworkResult<PokemonDetail>
 
     suspend fun getSpeciesDetail(url: String): NetworkResult<SpeciesDetail>
+
+    suspend fun getEvolutionChain(url: String): NetworkResult<EvolutionChain>
 
 }

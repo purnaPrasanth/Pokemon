@@ -3,10 +3,7 @@ package com.purna.pokemon.data.datasources
 import com.purna.pokemon.data.NetworkCallRunner
 import com.purna.pokemon.data.NetworkResult
 import com.purna.pokemon.data.SelfMapper
-import com.purna.pokemon.data.entity.PaginatedData
-import com.purna.pokemon.data.entity.PokemonDetail
-import com.purna.pokemon.data.entity.PokemonListItem
-import com.purna.pokemon.data.entity.SpeciesDetail
+import com.purna.pokemon.data.entity.*
 import com.purna.pokemon.httpwrapper.ClientWrapper
 
 class PokemonDataSourceImpl(
@@ -34,5 +31,12 @@ class PokemonDataSourceImpl(
         return netWorkRunner.executeForResponse(
             mapper = SelfMapper(),
             request = { httpWrapper.getResource(SpeciesDetail.serializer(), url) })
+    }
+
+    override suspend fun getEvolutionChain(url: String): NetworkResult<EvolutionChain> {
+        return netWorkRunner.executeForResponse(
+            mapper = SelfMapper(),
+            request = { httpWrapper.getResource(EvolutionChain.serializer(), url) }
+        )
     }
 }

@@ -6,7 +6,7 @@ import com.purna.pokemon.R
 import com.purna.pokemon.data.entity.PokemonListItem
 import com.purna.pokemon.databinding.PokemonListItemBinding
 
-class PokemonListAdapter(context: Context) : SingleTypeBaseRvAdapter<PokemonListItemBinding, PokemonListItem>(
+class PokemonListAdapter(context: Context) : PaginatedSingleTypeBaseRvAdapter<PokemonListItemBinding, PokemonListItem>(
     context,
     R.layout.pokemon_list_item,
     PokemonListItemDiffCallback()
