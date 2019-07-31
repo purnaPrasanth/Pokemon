@@ -2,6 +2,7 @@ package com.purna.pokemon.data.repo
 
 import androidx.paging.LivePagedListBuilder
 import com.purna.base.Dispatchers
+import com.purna.base.Executors
 import com.purna.pokemon.data.Error
 import com.purna.pokemon.data.Success
 import com.purna.pokemon.data.datasources.PokemonDataSourceContract
@@ -9,7 +10,8 @@ import kotlinx.coroutines.coroutineScope
 
 class PokemonRepo(
     private val pokemonDataSource: PokemonDataSourceContract,
-    private val dispatchers: Dispatchers
+    private val dispatchers: Dispatchers,
+    private val executors: Executors
 ) {
     suspend fun getPokemonList() = coroutineScope {
         pokemonDataSource.getListOfPokemon()
@@ -26,7 +28,7 @@ class PokemonRepo(
                 this.coroutineContext,
                 dispatchers
             ), 20
-        ).build()
+        ).setFetchExecutor(executors.ioExecutor).build()
     }
 
     suspend fun getEvolutionUrl(pokemonUrl: String) = coroutineScope {

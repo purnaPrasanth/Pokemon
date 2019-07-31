@@ -9,6 +9,7 @@
             android:padding="@dimen/parent_padding_half"
             android:background="@drawable/list_item_drawable"
             android:gravity="center"
+            android:textAllCaps="true"
             android:elevation="@dimen/d4"
             tools:text="Bulbasaur"/>
 </layout>

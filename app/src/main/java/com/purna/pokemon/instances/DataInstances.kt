@@ -11,7 +11,8 @@ object DataInstances {
     private val pokemonRepoGenerator: BaseGenerator<PokemonRepo> = single {
         PokemonRepo(
             pokemonDataSourceContract,
-            ExecutorInstances.appDispatchers
+            ExecutorInstances.appDispatchers,
+            ExecutorInstances.appExecutors
         )
     }
 
