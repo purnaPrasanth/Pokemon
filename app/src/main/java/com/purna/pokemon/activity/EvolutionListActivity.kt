@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.purna.pokemon.R
 import com.purna.pokemon.adapter.EvolutionItemAdapter
 import com.purna.pokemon.baseandroid.BaseActivity
+import com.purna.pokemon.data.repo.PokemonRepo
 import com.purna.pokemon.databinding.ActivityEvolutionListBinding
 import com.purna.pokemon.http.VerticalSpaceDecorator
 import com.purna.pokemon.instances.DataInstances
@@ -22,18 +23,24 @@ class EvolutionListActivity : BaseActivity<ActivityEvolutionListBinding>(R.layou
 
     private val evolutionUrl: String by lazy { intent.getStringExtra(BUNDLE_EVOLUTION_URL) }
 
+    private val clickedPokemon: String by lazy { intent.getStringExtra(BUNDLE_CLICKED_POKEMON) }
+
+    private val pokemonRepo: PokemonRepo
+        get() = DataInstances.pokemonRepo
+
     private val viewModel: EvolutionViewModel by lazy {
         ViewModelProviders.of(
             this,
             EvolutionViewModelFactory(
                 application,
                 evolutionUrl,
-                DataInstances.pokemonRepo
+                pokemonRepo,
+                dispatchers
             )
         ).get(EvolutionViewModel::class.java)
     }
 
-    private val adapter: EvolutionItemAdapter by lazy { EvolutionItemAdapter(this) }
+    private val adapter: EvolutionItemAdapter by lazy { EvolutionItemAdapter(this, clickedPokemon) }
 
     override fun initUI() {
         binding.recyclerView.adapter = adapter
@@ -61,16 +68,18 @@ class EvolutionListActivity : BaseActivity<ActivityEvolutionListBinding>(R.layou
     }
 
     companion object {
-        val BUNDLE_EVOLUTION_URL = "BUNDLE_EVOLUTION_URL"
+        private const val BUNDLE_EVOLUTION_URL = "BUNDLE_EVOLUTION_URL"
+        private const val BUNDLE_CLICKED_POKEMON = "BUNDLE_CLICKED_POKEMON"
 
-        fun getIntent(context: Context, evolutionUrl: String): Intent {
+        fun getIntent(context: Context, evolutionUrl: String, clickedPokemon: String): Intent {
             return Intent(context, EvolutionListActivity::class.java).apply {
                 putExtra(BUNDLE_EVOLUTION_URL, evolutionUrl)
+                putExtra(BUNDLE_CLICKED_POKEMON, clickedPokemon)
             }
         }
 
-        fun startActivity(context: Context, evolutionUrl: String) {
-            context.startActivity(getIntent(context, evolutionUrl))
+        fun startActivity(context: Context, evolutionUrl: String, clickedPokemon: String) {
+            context.startActivity(getIntent(context, evolutionUrl, clickedPokemon))
         }
     }
 }

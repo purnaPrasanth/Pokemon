@@ -20,7 +20,7 @@ class PokemonListActivity : BaseActivity<ActivityPokemonListBinding>(R.layout.ac
     AdapterView.OnItemClickListener {
 
     private val viewModel by lazy {
-        ViewModelProviders.of(this, PokemonViewModelFactory(application, DataInstances.pokemonRepo))
+        ViewModelProviders.of(this, PokemonViewModelFactory(application, DataInstances.pokemonRepo, dispatchers))
             .get(PokemonListVM::class.java)
     }
 
@@ -35,20 +35,21 @@ class PokemonListActivity : BaseActivity<ActivityPokemonListBinding>(R.layout.ac
         binding.recyclerView.addItemDecoration(VerticalSpaceDecorator(12))
         adapter.onItemClickListener = this
 
-        viewModel.paginaeddatSource.observe(this, Observer {
+        viewModel.pokemonData.observe(this, Observer {
             adapter.submitList(it)
         })
     }
 
     override fun onItemClick(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-        val pokemonUrl = viewModel.paginaeddatSource.value?.get(p2)?.url ?: return
+        val pokemon = viewModel.pokemonData.value?.get(p2) ?: return
 
         launch {
-            val pokemonDetail = pokemonRepo.getPokemonDetail(pokemonUrl) ?: return@launch
+            val pokemonDetail = pokemonRepo.getPokemonDetail(pokemon.url) ?: return@launch
             val speciesDetail = pokemonRepo.getSpeciesDetail(pokemonDetail.species.url) ?: return@launch
             EvolutionListActivity.startActivity(
                 this@PokemonListActivity,
-                speciesDetail.evolutionChain.url
+                speciesDetail.evolutionChain.url,
+                pokemon.name
             )
         }
     }

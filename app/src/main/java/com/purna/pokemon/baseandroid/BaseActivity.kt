@@ -5,6 +5,7 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import com.purna.base.Dispatchers
 import com.purna.pokemon.instances.ExecutorInstances
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
@@ -17,8 +18,11 @@ abstract class BaseActivity<BINDING : ViewDataBinding>(@LayoutRes val layoutId: 
 
     private val parentJob = SupervisorJob()
 
+    protected val dispatchers: Dispatchers
+        get() = ExecutorInstances.appDispatchers
+
     override val coroutineContext: CoroutineContext
-        get() = ExecutorInstances.mainDispatcher + parentJob
+        get() = dispatchers.mainDispatcher + parentJob
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

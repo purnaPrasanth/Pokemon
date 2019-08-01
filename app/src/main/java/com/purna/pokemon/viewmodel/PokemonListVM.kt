@@ -5,23 +5,28 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagedList
+import com.purna.base.Dispatchers
 import com.purna.pokemon.baseandroid.BaseViewModel
 import com.purna.pokemon.data.entity.PokemonListItem
 import com.purna.pokemon.data.repo.PokemonRepo
 import kotlinx.coroutines.runBlocking
-import java.util.*
 
-class PokemonListVM(application: Application, pokemonRepo: PokemonRepo) : BaseViewModel(application) {
+class PokemonListVM(application: Application, pokemonRepo: PokemonRepo, dispatchers: Dispatchers) :
+    BaseViewModel(application, dispatchers) {
 
-    val paginaeddatSource: LiveData<PagedList<PokemonListItem>> =
+    val pokemonData: LiveData<PagedList<PokemonListItem>> =
         runBlocking { pokemonRepo.getPaginatedPagedList() }
 }
 
-class PokemonViewModelFactory(private val application: Application, private val repo: PokemonRepo) :
+class PokemonViewModelFactory(
+    private val application: Application,
+    private val repo: PokemonRepo,
+    private val dispatchers: Dispatchers
+) :
     ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return PokemonListVM(application, repo) as T
+        return PokemonListVM(application, repo, dispatchers) as T
     }
 
 }
