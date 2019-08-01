@@ -56,6 +56,10 @@ class EvolutionListActivity : BaseActivity<ActivityEvolutionListBinding>(R.layou
         }
     }
 
+    override fun onBackPressed() {
+        if (!viewModel.canGoBackInEvolution()) super.onBackPressed()
+    }
+
     companion object {
         val BUNDLE_EVOLUTION_URL = "BUNDLE_EVOLUTION_URL"
 

@@ -6,6 +6,8 @@ import com.purna.base.Executors
 import com.purna.pokemon.data.Error
 import com.purna.pokemon.data.Success
 import com.purna.pokemon.data.datasources.PokemonDataSourceContract
+import com.purna.pokemon.data.entity.PokemonDetail
+import com.purna.pokemon.data.entity.SpeciesDetail
 import kotlinx.coroutines.coroutineScope
 
 class PokemonRepo(
@@ -31,24 +33,24 @@ class PokemonRepo(
         ).setFetchExecutor(executors.ioExecutor).build()
     }
 
-    suspend fun getEvolutionUrl(pokemonUrl: String) = coroutineScope {
-        val pokemonDetail = when (val response = pokemonDataSource.getPokemonDetail(pokemonUrl)) {
+    suspend fun getPokemonDetail(pokemonUrl: String): PokemonDetail? = coroutineScope {
+        when (val response = pokemonDataSource.getPokemonDetail(pokemonUrl)) {
             is Success -> response.data
             is Error -> {
                 response.exception.printStackTrace()
                 null
             }
         } ?: return@coroutineScope null
+    }
 
-        val speciesDetail = when (val response = pokemonDataSource.getSpeciesDetail(pokemonDetail.species.url)) {
+    suspend fun getSpeciesDetail(speciesUrl: String): SpeciesDetail? = coroutineScope {
+        when (val response = pokemonDataSource.getSpeciesDetail(speciesUrl)) {
             is Success -> response.data
             is Error -> {
                 response.exception.printStackTrace()
                 null
             }
         } ?: return@coroutineScope null
-
-        speciesDetail.evolutionChain.url
     }
 
     suspend fun getEvolutionChain(url: String) = coroutineScope {

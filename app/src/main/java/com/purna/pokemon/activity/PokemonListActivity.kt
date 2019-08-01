@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.purna.pokemon.R
 import com.purna.pokemon.adapter.PokemonListAdapter
 import com.purna.pokemon.baseandroid.BaseActivity
+import com.purna.pokemon.data.repo.PokemonRepo
 import com.purna.pokemon.databinding.ActivityPokemonListBinding
 import com.purna.pokemon.http.VerticalSpaceDecorator
 import com.purna.pokemon.instances.DataInstances
@@ -22,6 +23,9 @@ class PokemonListActivity : BaseActivity<ActivityPokemonListBinding>(R.layout.ac
         ViewModelProviders.of(this, PokemonViewModelFactory(application, DataInstances.pokemonRepo))
             .get(PokemonListVM::class.java)
     }
+
+    private val pokemonRepo: PokemonRepo
+        get() = DataInstances.pokemonRepo
 
     private val adapter: PokemonListAdapter by lazy { PokemonListAdapter(this) }
 
@@ -40,9 +44,11 @@ class PokemonListActivity : BaseActivity<ActivityPokemonListBinding>(R.layout.ac
         val pokemonUrl = viewModel.paginaeddatSource.value?.get(p2)?.url ?: return
 
         launch {
+            val pokemonDetail = pokemonRepo.getPokemonDetail(pokemonUrl) ?: return@launch
+            val speciesDetail = pokemonRepo.getSpeciesDetail(pokemonDetail.species.url) ?: return@launch
             EvolutionListActivity.startActivity(
                 this@PokemonListActivity,
-                DataInstances.pokemonRepo.getEvolutionUrl(pokemonUrl).orEmpty()
+                speciesDetail.evolutionChain.url
             )
         }
     }

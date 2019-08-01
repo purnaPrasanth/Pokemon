@@ -20,7 +20,7 @@ class EvolutionViewModel(
     private val url: String,
     private val pokemonRepo: PokemonRepo
 ) : BaseViewModel(application) {
-    private val stack: Stack<EvolutionChainItem> = Stack()
+    private val stack: Stack<List<EvolutionChainItem>> = Stack()
     private val currentEvolutionLevelInternal = MediatorLiveData<List<EvolutionChainItem>>()
     val currentEvolutionLevel: LiveData<List<EvolutionChainItem>>
         get() = currentEvolutionLevelInternal
@@ -35,19 +35,26 @@ class EvolutionViewModel(
     }
 
     fun pokemonSelected(name: String): Boolean {
-        val currentEvolutionLevel = currentEvolutionLevel.value ?: return false
+        val currentEvolutionLevel = currentEvolutionLevel.value!!
 
         val clickedEvolution = currentEvolutionLevel.find {
             it.species.name == name
         }!!
 
-        stack.push(clickedEvolution)
+        stack.push(currentEvolutionLevel)
         return if (clickedEvolution.evolvesTo.isNotEmpty()) {
             currentEvolutionLevelInternal.postValue(clickedEvolution.evolvesTo)
             true
         } else {
             false
         }
+    }
+
+    fun canGoBackInEvolution(): Boolean {
+        if (stack.isEmpty()) return false
+
+        currentEvolutionLevelInternal.postValue(stack.pop())
+        return true
     }
 
 

@@ -3,9 +3,6 @@
 
     <solid android:color="@color/white"/>
 
-    <stroke android:color="@color/slate"
-            android:width="@dimen/p1"/>
-
     <corners android:radius="@dimen/d8"/>
 
 </shape>
