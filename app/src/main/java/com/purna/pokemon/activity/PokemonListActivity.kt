@@ -10,7 +10,7 @@ import com.purna.pokemon.adapter.PokemonListAdapter
 import com.purna.pokemon.baseandroid.BaseActivity
 import com.purna.pokemon.data.repo.PokemonRepo
 import com.purna.pokemon.databinding.ActivityPokemonListBinding
-import com.purna.pokemon.http.VerticalSpaceDecorator
+import com.purna.pokemon.decorators.rv.VerticalSpaceDecorator
 import com.purna.pokemon.instances.DataInstances
 import com.purna.pokemon.viewmodel.PokemonListVM
 import com.purna.pokemon.viewmodel.PokemonViewModelFactory
@@ -27,16 +27,16 @@ class PokemonListActivity : BaseActivity<ActivityPokemonListBinding>(R.layout.ac
     private val pokemonRepo: PokemonRepo
         get() = DataInstances.pokemonRepo
 
-    private val adapter: PokemonListAdapter by lazy { PokemonListAdapter(this) }
+    private val pokemonListAdapter: PokemonListAdapter by lazy { PokemonListAdapter(this) }
 
     override fun initUI() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.adapter = adapter
+        binding.recyclerView.adapter = pokemonListAdapter
         binding.recyclerView.addItemDecoration(VerticalSpaceDecorator(12))
-        adapter.onItemClickListener = this
+        pokemonListAdapter.onItemClickListener = this
 
         viewModel.pokemonData.observe(this, Observer {
-            adapter.submitList(it)
+            pokemonListAdapter.submitList(it)
         })
     }
 

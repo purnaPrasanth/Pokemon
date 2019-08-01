@@ -6,6 +6,12 @@ import java.net.MalformedURLException
 /**
  * Created by Purna on 2019-07-30 as a part of Pokemon
  **/
+
+/**
+ * A uniform resources locator with Scheme either as http or https
+ *
+ */
+
 class HttpUrl(
     private val scheme: String,
     private val host: String,
@@ -18,6 +24,13 @@ class HttpUrl(
     }
 
     companion object {
+        /**
+         * Parse url into [HttpUrl]
+         * @param url Url string to be parsed
+         *
+         * @return HttpUrl parsed from given [url]
+         * @throws MalformedURLException If the scheme is not http or https
+         */
         @Throws(MalformedURLException::class)
         fun parseUrl(url: String): HttpUrl {
             var currPos = 0

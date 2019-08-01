@@ -9,6 +9,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.runBlocking
 import kotlin.coroutines.CoroutineContext
 
+/**
+ * An Implementation of [DataSource.Factory] to Paginate [PokemonListItem]
+ *
+ * @param repo [PokemonRepo] to fetch pages of PokemonLists
+ * @param parentContext Parent [CoroutineContext] to Restrict the Scopes of Network Requests
+ * @param dispatchers an Instance of [Dispatchers]
+ */
 class PokemonDataSourceFactory(
     private val repo: PokemonRepo,
     private val parentContext: CoroutineContext,
@@ -21,6 +28,13 @@ class PokemonDataSourceFactory(
     )
 }
 
+/**
+ * An Implementation of [DataSource] to Paginate [PokemonListItem]
+ *
+ * @param repo [PokemonRepo] to fetch pages of PokemonLists
+ * @param parentContext Parent [CoroutineContext] to Restrict the Scopes of Network Requests
+ * @param dispatchers an Instance of [Dispatchers]
+ */
 class PokemonPaginatedDataSource(
     private val repo: PokemonRepo,
     private val parentContext: CoroutineContext,

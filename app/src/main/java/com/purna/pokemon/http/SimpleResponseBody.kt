@@ -5,13 +5,18 @@ import java.io.Reader
 /**
  * Created by Purna on 2019-07-31 as a part of Pokemon
  **/
+
+/**
+ * A Simple Implementation of [ResponseBody]
+ */
+
 class SimpleResponseBody(reader: Reader) : ResponseBody(reader) {
 
     override fun string(): String {
         val strBuilder = StringBuilder()
         val bufferedReader = reader.buffered()
 
-        var line = bufferedReader.forEachLine {
+        bufferedReader.forEachLine {
             strBuilder.append(it)
         }
 

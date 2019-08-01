@@ -15,12 +15,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
 /**
- * A Handy RecyclerView Adapter for the case of Single ViewHolder Type
+ * A Handy RecyclerView Adapter for the case of Single ViewHolder Type and Pagination
  * This class greatly reduces the boiler plate code for a [RecyclerView.Adapter] with single type of [RecyclerView.ViewHolder]
  * @param BINDING the of view binding that this [RecyclerView.Adapter] uses
  * @param layoutId the layout id for creating ViewHolder in [onCreateViewHolder]
+ * @param diffCallback diff callback to be used in List Diff using [AsyncListDiffer]
  *
- * This uses [AsyncListDiffer] for calculating changes between successive lists give to this adapter in [setData]
  * @property onItemClickListener listener for item clicks
  * @property onItemLongClickListener listener for item long clicks
  */
@@ -67,6 +67,17 @@ abstract class PaginatedSingleTypeBaseRvAdapter<BINDING : ViewDataBinding, DATA>
     protected abstract fun onBindViewHolder(binding: BINDING, position: Int)
 }
 
+/**
+ * A Handy RecyclerView Adapter for the case of Single ViewHolder Type
+ * This class greatly reduces the boiler plate code for a [RecyclerView.Adapter] with single type of [RecyclerView.ViewHolder]
+ * @param BINDING the of view binding that this [RecyclerView.Adapter] uses
+ * @param layoutId the layout id for creating ViewHolder in [onCreateViewHolder]
+ * @param diffCallback diff callback to be used in List Diff using [AsyncListDiffer]
+ *
+ * @property onItemClickListener listener for item clicks
+ * @property onItemLongClickListener listener for item long clicks
+ */
+
 abstract class SingleTypeBaseRvAdapter<BINDING : ViewDataBinding, DATA>(
     val mContext: Context, @LayoutRes val layoutId: Int,
     diffCallback: DiffUtil.ItemCallback<DATA>
@@ -108,6 +119,10 @@ abstract class SingleTypeBaseRvAdapter<BINDING : ViewDataBinding, DATA>(
      */
     protected abstract fun onBindViewHolder(binding: BINDING, position: Int)
 }
+
+/**
+ * BaseViewHolder to be used with [PaginatedSingleTypeBaseRvAdapter] or [SingleTypeBaseRvAdapter]
+ */
 
 class BaseHolder<out T : ViewDataBinding>(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val binding: T = DataBindingUtil.bind(itemView)!!

@@ -3,8 +3,13 @@ package com.purna.pokemon.adapter
 import android.content.Context
 import androidx.recyclerview.widget.DiffUtil
 import com.purna.pokemon.R
+import com.purna.pokemon.data.entity.EvolutionChainItem
 import com.purna.pokemon.data.entity.PokemonListItem
 import com.purna.pokemon.databinding.PokemonListItemBinding
+
+/**
+ * [PaginatedSingleTypeBaseRvAdapter] to show a list of [PokemonListItem]
+ */
 
 class PokemonListAdapter(context: Context) : PaginatedSingleTypeBaseRvAdapter<PokemonListItemBinding, PokemonListItem>(
     context,
@@ -16,6 +21,9 @@ class PokemonListAdapter(context: Context) : PaginatedSingleTypeBaseRvAdapter<Po
     }
 }
 
+/**
+ * [DiffUtil.ItemCallback] implementation for [PokemonListItem]. To be used in calculating diff between to List
+ */
 class PokemonListItemDiffCallback : DiffUtil.ItemCallback<PokemonListItem>() {
     override fun areItemsTheSame(oldItem: PokemonListItem, newItem: PokemonListItem): Boolean {
         return oldItem.name == newItem.name

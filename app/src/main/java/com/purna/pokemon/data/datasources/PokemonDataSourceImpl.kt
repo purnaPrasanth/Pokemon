@@ -6,6 +6,10 @@ import com.purna.pokemon.data.SelfMapper
 import com.purna.pokemon.data.entity.*
 import com.purna.pokemon.httpwrapper.ClientWrapper
 
+/**
+ * An Implementation of [PokemonDataSourceImpl] to get Data from <a href="https://pokeapi.co/">Pokemon Api</a>
+ */
+
 class PokemonDataSourceImpl(
     private val httpWrapper: ClientWrapper,
     private val netWorkRunner: NetworkCallRunner

@@ -1,4 +1,4 @@
-package com.purna.pokemon.http
+package com.purna.pokemon.decorators.rv
 
 import android.graphics.Rect
 import android.view.View

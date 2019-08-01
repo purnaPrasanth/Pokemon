@@ -7,6 +7,10 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.KSerializer
 
+/**
+ * A Simple Wrapper class for [HttpClient]
+ */
+
 class ClientWrapper(
     private val client: HttpClient,
     private val converterFactory: Converter.Factory = KotlinxSerializationFactory()
@@ -18,7 +22,9 @@ class ClientWrapper(
             val call = client.newCall(request)
             val response = call.execute()
             val converter = converterFactory.converterForResponseBody(serializer)
-            converter.convert(response.body)
+            val parsedResponse = converter.convert(response.body)
+            response.close()
+            parsedResponse
         }
     }
 }

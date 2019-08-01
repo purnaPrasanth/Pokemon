@@ -5,6 +5,10 @@ import com.purna.base.creational.single
 import com.purna.pokemon.http.HttpClient
 import com.purna.pokemon.httpwrapper.ClientWrapper
 
+/**
+ * Container for Network Layer Instances
+ */
+
 object NetworkInstances {
     private val httpClientGenerator: BaseGenerator<HttpClient> = single {
         HttpClient(

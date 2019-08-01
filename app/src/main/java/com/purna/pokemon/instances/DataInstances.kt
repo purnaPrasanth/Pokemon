@@ -7,6 +7,10 @@ import com.purna.pokemon.data.datasources.PokemonDataSourceContract
 import com.purna.pokemon.data.datasources.PokemonDataSourceImpl
 import com.purna.pokemon.data.repo.PokemonRepo
 
+/**
+ * Container for Holding Data Layer Instances
+ */
+
 object DataInstances {
     private val pokemonRepoGenerator: BaseGenerator<PokemonRepo> = single {
         PokemonRepo(

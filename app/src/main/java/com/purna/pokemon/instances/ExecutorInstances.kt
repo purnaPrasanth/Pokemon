@@ -12,7 +12,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.asCoroutineDispatcher
 
 /**
- * Genrators for [AppExecutor] or [Executors] or [Dispatchers] instances
+ * Container for [AppExecutor] or [Executors] or [Dispatchers] instances
  */
 
 object ExecutorInstances {
