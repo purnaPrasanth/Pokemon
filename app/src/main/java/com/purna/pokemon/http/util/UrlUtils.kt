@@ -4,6 +4,13 @@ package com.purna.pokemon.http.util
  * Created by Purna on 2019-07-30 as a part of Pokemon
  **/
 
+fun isSuccess(responseCode: Int): Boolean {
+    return when (responseCode) {
+        in (200..299) -> true
+        else -> false
+    }
+}
+
 /**
  * Delimitter for a scheme in an url
  *

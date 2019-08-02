@@ -4,6 +4,7 @@ import com.purna.base.creational.BaseGenerator
 import com.purna.base.creational.single
 import com.purna.pokemon.http.HttpClient
 import com.purna.pokemon.httpwrapper.ClientWrapper
+import java.util.concurrent.TimeUnit
 
 /**
  * Container for Network Layer Instances
@@ -12,7 +13,10 @@ import com.purna.pokemon.httpwrapper.ClientWrapper
 object NetworkInstances {
     private val httpClientGenerator: BaseGenerator<HttpClient> = single {
         HttpClient(
-            dispatcher = ExecutorInstances.ioDispatcher
+            dispatcher = ExecutorInstances.ioDispatcher,
+            timeUnit = TimeUnit.SECONDS,
+            readTimeOut = 20,
+            connectTimeOut = 20
         )
     }
 

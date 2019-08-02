@@ -1,5 +1,6 @@
 package com.purna.pokemon.http
 
+import com.purna.pokemon.http.util.isSuccess
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withContext
 import java.io.InputStreamReader
@@ -25,11 +26,16 @@ class SimpleCall(
         withContext(client.dispatcher) {
             val con = URL(request.httpUrl.toString()).openConnection() as HttpURLConnection
 
+            con.readTimeout = client.readTimeOutInMillis().toInt()
+            con.connectTimeout = client.connectTimeOutInMillis().toInt()
+
             con.requestMethod = request.method
 
             val responseCode = con.responseCode
 
-            Response(request, SimpleResponseBody(InputStreamReader(con.inputStream)), responseCode)
+            val responseReader = if (isSuccess(responseCode)) InputStreamReader(con.inputStream) else null
+
+            Response(request, SimpleResponseBody(responseReader), responseCode)
         }
     }
 }

@@ -14,10 +14,10 @@ import java.io.Reader
  * This must be closed after use
  */
 
-abstract class ResponseBody(protected val reader: Reader) : Closeable {
+abstract class ResponseBody(protected val reader: Reader?) : Closeable {
     abstract fun string(): String
 
     override fun close() {
-        reader.close()
+        reader?.close()
     }
 }
