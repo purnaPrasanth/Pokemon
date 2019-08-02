@@ -11,10 +11,8 @@ package com.purna.pokemon.http.util
  * @return delimitter count for scheme of the url
  */
 
-fun schemeDelimiter(url: String): Int = when {
-    url.startsWith("https") -> 5
-    url.startsWith("http") -> 4
-    else -> -1
+fun schemeDelimiter(url: String): Int {
+    return delimiterOffset(url, 0, url.length, ":")
 }
 
 /** Returns the number of '/' and '\' slashes in `input`, starting at `pos`.  */

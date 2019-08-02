@@ -18,6 +18,7 @@ class SimpleCall(
     private val client: HttpClient,
     private val request: Request
 ) : Call {
+
     override fun request() = request
 
     override suspend fun execute(): Response = coroutineScope {
@@ -26,7 +27,9 @@ class SimpleCall(
 
             con.requestMethod = request.method
 
-            Response(request, SimpleResponseBody(InputStreamReader(con.inputStream)))
+            val responseCode = con.responseCode
+
+            Response(request, SimpleResponseBody(InputStreamReader(con.inputStream)), responseCode)
         }
     }
 }

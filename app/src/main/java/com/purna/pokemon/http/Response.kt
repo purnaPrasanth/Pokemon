@@ -18,7 +18,8 @@ import java.io.Closeable
 
 class Response(
     private val request: Request,
-    val body: ResponseBody
+    val body: ResponseBody,
+    val responseCode: Int
 ) : Closeable {
     override fun close() {
         body.close()

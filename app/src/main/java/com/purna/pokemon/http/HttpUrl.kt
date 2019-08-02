@@ -13,14 +13,19 @@ import java.net.MalformedURLException
  */
 
 class HttpUrl(
-    private val scheme: String,
-    private val host: String,
-    private val pathSegments: List<String>,
-    private val queriesAndNames: List<String>? = null
+    val scheme: String,
+    val host: String,
+    val pathSegments: List<String>? = null,
+    val queriesAndNames: List<String>? = null
 ) {
 
     override fun toString(): String {
-        return "$scheme://$host/${pathSegments.joinToString("/")}?${namesAndValuesToQueryString(queriesAndNames)}"
+        val urlBuilder = StringBuilder("$scheme://$host")
+        val path = pathSegments?.joinToString("/")
+        if (path != null && path.isNotEmpty()) urlBuilder.append("/$path")
+        val query = namesAndValuesToQueryString(queriesAndNames)
+        if (query.isNotEmpty()) urlBuilder.append("?$query")
+        return urlBuilder.toString()
     }
 
     companion object {
@@ -35,11 +40,12 @@ class HttpUrl(
         fun parseUrl(url: String): HttpUrl {
             var currPos = 0
             val schemeOffset = schemeDelimiter(url)
-            currPos += (schemeOffset + 1)
-            if (schemeOffset == -1) throw MalformedURLException("Unsupported Protocol $url. Should be http or https")
             val scheme = url.substring(0, schemeOffset)
+            currPos += (schemeOffset + 1)
+            if (scheme != "http" && scheme != "https") throw MalformedURLException("Unsupported Protocol $url. Should be http or https")
             val slashCount = slashCount(url, currPos, url.length)
             currPos += slashCount
+            if (currPos >= url.length) throw MalformedURLException("No Host found in $url")
             val nextSlash = delimiterOffset(url, currPos, url.length, "/")
             val hostName = url.substring(currPos, nextSlash)
             currPos = nextSlash + 1
